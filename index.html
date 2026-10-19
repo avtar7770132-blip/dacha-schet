@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дача-Счёт · Калькуляторы для сада и огорода</title>
+    <meta name="description" content="Бесплатные онлайн-инструменты для дачников: расчет семян, удобрений, лунный календарь, совместимость культур. Планируйте урожай грамотно!">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Место для Яндекс Метрики -->
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌿 Дача-Счёт</h1>
+        <p class="subtitle">Умные помощники для вашего урожая. Без регистрации и смс.</p>
+    </header>
+
+    <!-- ФИЛЬТРЫ КАТЕГОРИЙ -->
+    <div class="filters">
+        <button onclick="filterCards('all')" class="filter-btn active" id="btn-all">Все инструменты</button>
+        <button onclick="filterCards('seeds')" class="filter-btn" id="btn-seeds">🌱 Семена и Рассада</button>
+        <button onclick="filterCards('fertilizer')" class="filter-btn" id="btn-fertilizer">🧪 Удобрения</button>
+        <button onclick="filterCards('calendar')" class="filter-btn" id="btn-calendar">📅 Лунный календарь</button>
+        <button onclick="filterCards('compatibility')" class="filter-btn" id="btn-compatibility">🤝 Совместимость</button>
+    </div>
+
+    <!-- БЛОК РЕКЛАМЫ (Верхний) -->
+    <div class="ad-banner">
+        [ Место для рекламы: Баннер 728x90 или Адаптивный блок РСЯ ]<br>
+        <small>Здесь может быть ваша реклама удобрений или инвентаря</small>
+    </div>
+
+    <!-- СЕТКА ИНСТРУМЕНТОВ -->
+    <div class="grid-container" id="toolsGrid">
+        
+        <!-- Карточка 1: Семена -->
+        <a href="seeds-calc.html" class="card fade-in" data-category="seeds">
+            <div>
+                <div class="card-title">🌱 Калькулятор семян</div>
+                <div class="card-desc">Сколько граммов семян нужно на вашу грядку? Расчет нормы высева для томатов, огурцов, зелени.</div>
+            </div>
+            <span class="btn-link">Открыть →</span>
+        </a>
+
+        <!-- Карточка 2: Удобрения -->
+        <a href="#" class="card fade-in" data-category="fertilizer" style="opacity: 0.6; pointer-events: none;">
+            <div>
+                <div class="card-title">🧪 Норма удобрений</div>
+                <div class="card-desc">Расчет мочевины, суперфосфата и золы под плодовые деревья и кустарники.</div>
+            </div>
+            <span class="btn-link" style="background: #ccc;">Скоро</span>
+        </a>
+
+        <!-- Карточка 3: Календарь -->
+        <a href="calendar.html" class="card fade-in" data-category="calendar">
+            <div>
+                <div class="card-title">📅 Лунный посевной</div>
+                <div class="card-desc">Что сажать сегодня? Благоприятные дни для посадки, полива и сбора урожая.</div>
+            </div>
+            <span class="btn-link">Открыть →</span>
+        </a>
+
+        <!-- Карточка 4: Совместимость -->
+        <a href="compatibility.html" class="card fade-in" data-category="compatibility">
+            <div>
+                <div class="card-title">🤝 Таблица совместимости</div>
+                <div class="card-desc">Какие растения дружат на грядке, а какие угнетают друг друга. Чек-лист севооборота.</div>
+            </div>
+            <span class="btn-link">Открыть →</span>
+        </a>
+
+    </div>
+
+    <!-- БЛОК РЕКЛАМЫ (Нижний) -->
+    <div class="ad-banner">
+        [ Место для рекламы: Текстово-графический блок ]<br>
+        <small>Партнерские ссылки на Ozon/Wildberries (семена, инвентарь)</small>
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">
+        © 2026 Дача-Счёт · Все расчёты справочные.<br>
+        <small>Сделано с любовью к земле.</small>
+    </footer>
+</div>
+
+<script>
+    function filterCards(category) {
+        const cards = document.querySelectorAll('.card');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Обновляем кнопки
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.id === 'btn-' + category) btn.classList.add('active');
+        });
+
+        // Фильтруем карточки
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'flex';
+                // Перезапуск анимации
+                card.style.animation = 'none';
+                card.offsetHeight; 
+                card.style.animation = null;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
