@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор семян: норма высева — Дача-Счёт</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+    <header style="margin-bottom: 20px;">
+        <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← Назад на главную</a>
+    </header>
+
+    <h1>🌱 Калькулятор семян</h1>
+    <p class="subtitle">Узнайте точное количество семян для вашей грядки.</p>
+
+    <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <form id="seedForm">
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Культура</label>
+                <select id="cropType" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
+                    <option value="tomato">Томаты (рассада)</option>
+                    <option value="cucumber">Огурцы (прямой посев)</option>
+                    <option value="carrot">Морковь</option>
+                    <option value="lettuce">Салат листовой</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Площадь грядки, м²</label>
+                <input type="number" id="area" value="10" min="1" step="0.5" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Схема посадки (расстояние между рядами), см</label>
+                <input type="number" id="rowSpace" value="50" min="10" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
+                <small style="color:#666">Стандарт: 50-70 см для крупных, 20-30 см для зелени.</small>
+            </div>
+
+            <button type="submit" class="btn-link" style="width: 100%; border:none; cursor:pointer; font-size: 1.1rem;">Рассчитать норму</button>
+        </form>
+    </div>
+
+    <div id="resultArea" style="display:none; max-width: 600px; margin: 20px auto;" class="card fade-in">
+        <h3 style="color: var(--color-accent); margin-top:0;">Результат расчета</h3>
+        <p>Для площади <strong id="resArea">0</strong> м² вам потребуется:</p>
+        <ul style="line-height: 2;">
+            <li>🌱 <strong>Семян:</strong> <span id="resSeeds" style="color: var(--color-accent); font-size: 1.2rem;">0 гр</span></li>
+            <li>🌿 <strong>Растений (кустов):</strong> <span id="resPlants">0 шт</span></li>
+            <li>📏 <strong>Длина ряда:</strong> <span id="resRowLen">0 м</span></li>
+        </ul>
+        <div style="background: #f0fdf4; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 0.9rem; color: #14532d;">
+            💡 <strong>Совет:</strong> Всегда покупайте семена с запасом +15% на брак и пересев.
+        </div>
+    </div>
+
+    <!-- Место для рекламы под результатом -->
+    <div class="ad-banner" style="max-width: 600px; margin: 20px auto;">
+        [ Реклама: Семена проверенных сортов со скидкой ]
+    </div>
+</div>
+
+<script>
+    // Нормы высева (грамм на 1 м2) - условные средние значения
+    const RATES = {
+        tomato: { rate: 0.5, plantsPerM2: 3 }, // Томаты usually рассада, но считаем вес семян для покупки
+        cucumber: { rate: 1.0, plantsPerM2: 4 },
+        carrot: { rate: 0.8, plantsPerM2: 100 },
+        lettuce: { rate: 0.6, plantsPerM2: 80 }
+    };
+
+    document.getElementById('seedForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const crop = document.getElementById('cropType').value;
+        const area = parseFloat(document.getElementById('area').value);
+        const rowSpaceCm = parseFloat(document.getElementById('rowSpace').value);
+        
+        if (!area || !rowSpaceCm) return alert("Заполните все поля");
+
+        const data = RATES[crop];
+        
+        // Расчеты
+        const totalSeeds = (data.rate * area * 1.15).toFixed(1); // +15% запас
+        const totalPlants = Math.round(data.plantsPerM2 * area);
+        
+        // Длина ряда = Площадь / Ширина междурядья (в метрах)
+        const rowLength = (area / (rowSpaceCm / 100)).toFixed(1);
+
+        document.getElementById('resArea').innerText = area;
+        document.getElementById('resSeeds').innerText = totalSeeds + " гр";
+        document.getElementById('resPlants').innerText = totalPlants + " шт";
+        document.getElementById('resRowLen').innerText = rowLength + " м";
+
+        document.getElementById('resultArea').style.display = 'block';
+        document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
