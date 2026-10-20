@@ -3,101 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор семян: норма высева — Дача-Счёт</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="styles.css">
+    <title>5 ошибок при посеве семян на рассаду — Дача-Счёт</title>
+    <meta name="description" content="Почему семена не всходят, вытягиваются или погибают? Разбираем главные ошибки новичков и даём чек-лист правильного посева.">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .article-content h2 {
+            color: var(--color-accent);
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .article-content p { margin-bottom: 20px; }
+        .article-content ul, .article-content ol { margin-bottom: 20px; padding-left: 30px; }
+        .article-content li { margin-bottom: 10px; }
+        .error-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .error-box strong { color: #7f1d1d; }
+        .tip-box {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .tip-box strong { color: #14532d; }
+        .cta-block {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .cta-block h3 { color: var(--color-accent); margin-bottom: 15px; }
+        .cta-block a {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
     <header style="margin-bottom: 20px;">
-        <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← Назад на главную</a>
+        <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← Ко всем статьям</a>
     </header>
 
-    <h1>🌱 Калькулятор семян</h1>
-    <p class="subtitle">Узнайте точное количество семян для вашей грядки.</p>
+    <div class="article-content">
+        <h1>5 ошибок новичка при посеве семян на рассаду</h1>
+        <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 30px;">Дата: Октябрь 2026 · Время чтения: 6 мин</p>
 
-    <div class="card" style="max-width: 600px; margin: 0 auto;">
-        <form id="seedForm">
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Культура</label>
-                <select id="cropType" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
-                    <option value="tomato">Томаты (рассада)</option>
-                    <option value="cucumber">Огурцы (прямой посев)</option>
-                    <option value="carrot">Морковь</option>
-                    <option value="lettuce">Салат листовой</option>
-                </select>
-            </div>
+        <p>Каждую весну тысячи дачников сталкиваются с одной и той же проблемой: семена не всходят, рассада вытягивается, падает или погибает. Обидно, ведь время упущено, а до сезона осталось мало. Давайте разберём пять самых частых ошибок и научимся их избегать.</p>
 
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Площадь грядки, м²</label>
-                <input type="number" id="area" value="10" min="1" step="0.5" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
-            </div>
+        <h2>Ошибка №1: Слишком ранний посев</h2>
+        <p>Многие начинают сеять томаты и перцы в феврале, думая: «Чем раньше, тем лучше». Но рассада перерастает, вытягивается, и после высадки в грунт долго болеет.</p>
+        <div class="error-box"><strong>❌ Как бывает:</strong> Посеяли томаты 15 февраля, к маю получили метровые «пальмы» с тонкими стеблями.</div>
+        <div class="tip-box"><strong>✅ Как надо:</strong> Считайте сроки посева от даты высадки в грунт. Томаты — 60–65 дней до высадки, перцы — 70–80 дней, баклажаны — 65–70 дней. Если высадка планируется 10–15 мая, сейте томаты 10–15 марта, а не в феврале.</div>
 
-            <div style="margin-bottom: 15px;">
-                <label style="display:block; margin-bottom: 5px; font-weight:bold;">Схема посадки (расстояние между рядами), см</label>
-                <input type="number" id="rowSpace" value="50" min="10" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--color-border);">
-                <small style="color:#666">Стандарт: 50-70 см для крупных, 20-30 см для зелени.</small>
-            </div>
+        <h2>Ошибка №2: Глубокая заделка семян</h2>
+        <p>Мелкие семена (петуния, сельдерей, земляника) вообще не заделывают — их сеют по поверхности и лишь слегка прижимают. Крупные семена (тыква, фасоль) заглубляют на 2–3 см. Но многие сыпят всё подряд на одну глубину.</p>
+        <div class="error-box"><strong>❌ Как бывает:</strong> Мелкие семена засыпали землёй на 1 см — они просто не смогли пробиться.</div>
+        <div class="tip-box"><strong>✅ Правило:</strong> Глубина заделки = 2–3 диаметра семени. Если семя мелкое как пыль — сейте поверхностно.</div>
 
-            <button type="submit" class="btn-link" style="width: 100%; border:none; cursor:pointer; font-size: 1.1rem;">Рассчитать норму</button>
-        </form>
-    </div>
+        <h2>Ошибка №3: Избыточный полив</h2>
+        <p>Новички часто поливают рассаду каждый день, боясь пересушить. Но переувлажнение — главная причина «чёрной ножки» и гибели сеянцев.</p>
+        <div class="error-box"><strong>❌ Как бывает:</strong> Земля постоянно мокрая, рассада падает, стебель чернеет у основания.</div>
+        <div class="tip-box"><strong>✅ Как надо:</strong> Поливайте, когда верхний слой почвы подсохнет. Используйте пульверизатор для мелких всходов, лейку с тонким носиком — для подросшей рассады. Обязательно делайте дренажные отверстия в стаканчиках.</div>
 
-    <div id="resultArea" style="display:none; max-width: 600px; margin: 20px auto;" class="card fade-in">
-        <h3 style="color: var(--color-accent); margin-top:0;">Результат расчета</h3>
-        <p>Для площади <strong id="resArea">0</strong> м² вам потребуется:</p>
-        <ul style="line-height: 2;">
-            <li>🌱 <strong>Семян:</strong> <span id="resSeeds" style="color: var(--color-accent); font-size: 1.2rem;">0 гр</span></li>
-            <li>🌿 <strong>Растений (кустов):</strong> <span id="resPlants">0 шт</span></li>
-            <li>📏 <strong>Длина ряда:</strong> <span id="resRowLen">0 м</span></li>
-        </ul>
-        <div style="background: #f0fdf4; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 0.9rem; color: #14532d;">
-            💡 <strong>Совет:</strong> Всегда покупайте семена с запасом +15% на брак и пересев.
+        <h2>Ошибка №4: Недостаток света</h2>
+        <p>Рассада на подоконнике без досветки неизбежно вытягивается, особенно в феврале-марте, когда световой день короткий.</p>
+        <div class="error-box"><strong>❌ Как бывает:</strong> Тонкие бледные стебли длиной 15–20 см, которые падают от собственного веса.</div>
+        <div class="tip-box"><strong>✅ Решение:</strong> Досвечивайте фитолампами или обычными светодиодными лампами (6500K) по 12–14 часов в день. Лампу держите на высоте 10–15 см от макушек рассады.</div>
+
+        <h2>Ошибка №5: Неправильный грунт</h2>
+        <p>Многие используют огородную землю или универсальный грунт без разрыхлителей. Такой грунт плотный, плохо пропускает воздух, и корни задыхаются.</p>
+        <div class="error-box"><strong>❌ Как бывает:</strong> Рассада медленно растёт, листья желтеют, корни не развиваются.</div>
+        <div class="tip-box"><strong>✅ Идеальная смесь:</strong> Торф + перлит/вермикулит (30%) + компост (20%). Или купите готовый грунт для рассады и добавьте перлит.</div>
+
+        <h2>Чек-лист правильного посева</h2>
+        <ol>
+            <li>✅ Рассчитайте сроки посева от даты высадки в грунт.</li>
+            <li>✅ Проверьте срок годности семян (всхожесть падает после 2–3 лет).</li>
+            <li>✅ Используйте лёгкий, воздухопроницаемый грунт.</li>
+            <li>✅ Соблюдайте глубину заделки (2–3 диаметра семени).</li>
+            <li>✅ Поливайте умеренно, не допускайте переувлажнения.</li>
+            <li>✅ Обеспечьте досветку 12–14 часов в день.</li>
+            <li>✅ Закаляйте рассаду перед высадкой (выносите на балкон на 1–2 часа).</li>
+        </ol>
+
+        <div class="cta-block">
+            <h3>Сколько семян нужно именно вам?</h3>
+            <p>Не покупайте наугад! Используйте наш калькулятор — введите площадь грядки, и система покажет точное количество семян с учётом запаса на пересев.</p>
+            <a href="../seeds-calc.html">👉 Рассчитать норму семян</a>
         </div>
     </div>
 
-    <!-- Место для рекламы под результатом -->
-    <div class="ad-banner" style="max-width: 600px; margin: 20px auto;">
-        [ Реклама: Семена проверенных сортов со скидкой ]
-    </div>
+    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem; border-top: 1px solid var(--color-border); padding-top: 20px;">
+        © 2027 Дача-Счёт · Все советы носят рекомендательный характер.
+    </footer>
 </div>
-
-<script>
-    // Нормы высева (грамм на 1 м2) - условные средние значения
-    const RATES = {
-        tomato: { rate: 0.5, plantsPerM2: 3 }, // Томаты usually рассада, но считаем вес семян для покупки
-        cucumber: { rate: 1.0, plantsPerM2: 4 },
-        carrot: { rate: 0.8, plantsPerM2: 100 },
-        lettuce: { rate: 0.6, plantsPerM2: 80 }
-    };
-
-    document.getElementById('seedForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const crop = document.getElementById('cropType').value;
-        const area = parseFloat(document.getElementById('area').value);
-        const rowSpaceCm = parseFloat(document.getElementById('rowSpace').value);
-        
-        if (!area || !rowSpaceCm) return alert("Заполните все поля");
-
-        const data = RATES[crop];
-        
-        // Расчеты
-        const totalSeeds = (data.rate * area * 1.15).toFixed(1); // +15% запас
-        const totalPlants = Math.round(data.plantsPerM2 * area);
-        
-        // Длина ряда = Площадь / Ширина междурядья (в метрах)
-        const rowLength = (area / (rowSpaceCm / 100)).toFixed(1);
-
-        document.getElementById('resArea').innerText = area;
-        document.getElementById('resSeeds').innerText = totalSeeds + " гр";
-        document.getElementById('resPlants').innerText = totalPlants + " шт";
-        document.getElementById('resRowLen').innerText = rowLength + " м";
-
-        document.getElementById('resultArea').style.display = 'block';
-        document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth' });
-    });
-</script>
 
 </body>
 </html>
