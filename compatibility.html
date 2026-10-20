@@ -4,230 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Совместимость культур на грядке — Дача-Счёт</title>
-   <link rel="icon" type="image/svg+xml" href="favicon.svg"> <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .crop-selector {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .crop-btn {
-            padding: 12px 10px;
-            border: 2px solid var(--color-border);
-            background: white;
-            color: var(--color-text-main);
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            text-align: center;
-        }
-        .crop-btn:hover {
-            border-color: var(--color-accent);
-            transform: translateY(-2px);
-        }
-        .crop-btn.active {
-            background: var(--color-accent);
-            color: white;
-            border-color: var(--color-accent);
-        }
-        .result-card {
-            background: white;
-            border: 1px solid var(--color-border);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        .result-title {
-            font-size: 1.5rem;
-            color: var(--color-accent);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .relations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .relation-block {
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid;
-        }
-        .relation-block h4 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        .relation-block ul {
-            margin: 0;
-            padding-left: 20px;
-            line-height: 1.8;
-        }
-        .friends {
-            background: #dcfce7;
-            border-color: #22c55e;
-        }
+        .crop-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 30px; }
+        .crop-btn { padding: 12px 10px; border: 2px solid var(--color-border); background: white; color: var(--color-text-main); border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: all 0.2s; text-align: center; }
+        .crop-btn:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+        .crop-btn.active { background: var(--color-accent); color: white; border-color: var(--color-accent); }
+        .result-card { background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .result-title { font-size: 1.5rem; color: var(--color-accent); margin-bottom: 20px; text-align: center; }
+        .relations { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .relation-block { padding: 15px; border-radius: 10px; border: 1px solid; }
+        .relation-block h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.1rem; }
+        .relation-block ul { margin: 0; padding-left: 20px; line-height: 1.8; }
+        .friends { background: #dcfce7; border-color: #22c55e; }
         .friends h4 { color: #14532d; }
-        .enemies {
-            background: #fee2e2;
-            border-color: #ef4444;
-        }
+        .enemies { background: #fee2e2; border-color: #ef4444; }
         .enemies h4 { color: #7f1d1d; }
-        .neutral {
-            background: #fef9c3;
-            border-color: #eab308;
-        }
+        .neutral { background: #fef9c3; border-color: #eab308; }
         .neutral h4 { color: #713f12; }
-        .tip-box {
-            background: #f0fdf4;
-            border-left: 4px solid var(--color-accent);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 0.95rem;
-        }
+        .tip-box { background: #f0fdf4; border-left: 4px solid var(--color-accent); padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.95rem; }
     </style>
 </head>
 <body>
-
 <div class="container">
     <header style="margin-bottom: 20px;">
         <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← На главную</a>
     </header>
-
     <h1>🤝 Совместимость культур</h1>
     <p class="subtitle">Выберите растение — узнайте, с кем оно дружит, а с кем враждует на грядке.</p>
 
     <div class="crop-selector" id="cropSelector"></div>
-
     <div id="resultArea"></div>
 
     <div class="ad-banner">[ Место для рекламы: Семена проверенных сортов, удобрения ]</div>
-
-    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">
-        © 2027 Дача-Счёт · Данные основаны на принципах аллелопатии и севооборота.
-    </footer>
+    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">© 2027 Дача-Счёт</footer>
 </div>
 
 <script>
 const CROPS = {
-    'tomato': {
-        name: '🍅 Томат',
-        friends: ['Базилик', 'Морковь', 'Лук', 'Чеснок', 'Петрушка', 'Бархатцы', 'Крапива'],
-        enemies: ['Картофель', 'Фенхель', 'Укроп (взрослый)', 'Горох'],
-        neutral: ['Огурец', 'Свёкла', 'Салат'],
-        tip: 'Томаты и базилик — классическое соседство. Базилик отпугивает тлю и улучшает вкус плодов.'
-    },
-    'cucumber': {
-        name: '🥒 Огурец',
-        friends: ['Укроп', 'Горох', 'Фасоль', 'Салат', 'Капуста', 'Свёкла', 'Чеснок'],
-        enemies: ['Томат', 'Картофель', 'Редис', 'Ароматные травы (шалфей, мята)'],
-        neutral: ['Морковь', 'Лук', 'Кукуруза'],
-        tip: 'Огурцы любят высокую влажность, а томаты — сухую. Не сажайте их в одной теплице!'
-    },
-    'potato': {
-        name: '🥔 Картофель',
-        friends: ['Фасоль', 'Горох', 'Капуста', 'Кукуруза', 'Хрен', 'Бархатцы'],
-        enemies: ['Томат', 'Огурец', 'Тыква', 'Подсолнечник', 'Лебеда'],
-        neutral: ['Морковь', 'Свёкла', 'Лук'],
-        tip: 'Бархатцы между рядами картофеля отпугивают колорадского жука и нематоду.'
-    },
-    'carrot': {
-        name: ' Морковь',
-        friends: ['Лук', 'Томат', 'Горох', 'Редис', 'Салат', 'Шалфей', 'Розмарин'],
-        enemies: ['Укроп', 'Фенхель', 'Анис', 'Сельдерей (корневой)'],
-        neutral: ['Огурец', 'Картофель', 'Свёкла'],
-        tip: 'Классика: лук и морковь отпугивают вредителей друг друга (морковная и луковая мухи).'
-    },
-    'onion': {
-        name: '🧅 Лук',
-        friends: ['Морковь', 'Свёкла', 'Томат', 'Огурец', 'Клубника', 'Ромашка'],
-        enemies: ['Фасоль', 'Горох', 'Шалфей', 'Спаржа'],
-        neutral: ['Картофель', 'Капуста', 'Перец'],
-        tip: 'Лук рядом с клубникой защищает её от серой гнили и долгоносика.'
-    },
-    'garlic': {
-        name: '🧄 Чеснок',
-        friends: ['Томат', 'Огурец', 'Морковь', 'Клубника', 'Роза', 'Смородина'],
-        enemies: ['Фасоль', 'Горох', 'Капуста'],
-        neutral: ['Картофель', 'Свёкла', 'Лук'],
-        tip: 'Чеснок — природный фунгицид. Сажайте его между кустами роз для защиты от тли.'
-    },
-    'cabbage': {
-        name: '🥬 Капуста',
-        friends: ['Укроп', 'Сельдерей', 'Мята', 'Ромашка', 'Лук', 'Огурец', 'Фасоль'],
-        enemies: ['Клубника', 'Томат', 'Виноград', 'Фасоль (после)'],
-        neutral: ['Морковь', 'Свёкла', 'Картофель'],
-        tip: 'Укроп рядом с капустой привлекает божьих коровок, которые поедают тлю.'
-    },
-    'pepper': {
-        name: '🌶 Перец',
-        friends: ['Базилик', 'Морковь', 'Лук', 'Шпинат', 'Бархатцы'],
-        enemies: ['Фенхель', 'Фасоль (стручковая)', 'Свёкла'],
-        neutral: ['Томат', 'Огурец', 'Капуста'],
-        tip: 'Перец и базилик — лучшие соседи в теплице. Базилик улучшает вкус перца.'
-    },
-    'eggplant': {
-        name: '🍆 Баклажан',
-        friends: ['Фасоль', 'Горох', 'Шпинат', 'Тимьян', 'Бархатцы'],
-        enemies: ['Фенхель', 'Огурец', 'Томат (близко)'],
-        neutral: ['Перец', 'Лук', 'Морковь'],
-        tip: 'Баклажаны не любят тесноту. Минимум 50 см между кустами.'
-    },
-    'pea': {
-        name: '🫛 Горох',
-        friends: ['Морковь', 'Огурец', 'Редис', 'Кукуруза', 'Капуста', 'Картофель'],
-        enemies: ['Лук', 'Чеснок', 'Томат', 'Подсолнечник'],
-        neutral: ['Свёкла', 'Салат', 'Шпинат'],
-        tip: 'Горох обогащает почву азотом. Сажайте его перед культурами, требовательными к азоту (капуста, томат).'
-    },
-    'bean': {
-        name: '🫘 Фасоль',
-        friends: ['Картофель', 'Огурец', 'Кукуруза', 'Свёкла', 'Капуста', 'Клубника'],
-        enemies: ['Лук', 'Чеснок', 'Фенхель', 'Горох'],
-        neutral: ['Морковь', 'Редис', 'Салат'],
-        tip: 'Фасоль и кукуруза — классическая пара ("три сестры" с тыквой). Кукуруза служит опорой.'
-    },
-    'beet': {
-        name: ' Свёкла',
-        friends: ['Лук', 'Капуста', 'Салат', 'Огурец', 'Фасоль'],
-        enemies: ['Фасоль (стручковая)', 'Горчица', 'Кукуруза'],
-        neutral: ['Морковь', 'Томат', 'Картофель'],
-        tip: 'Свёкла любит соседство салата — он притеняет её от палящего солнца.'
-    },
-    'radish': {
-        name: '🔴 Редис',
-        friends: ['Морковь', 'Огурец', 'Горох', 'Салат', 'Шпинат', 'Фасоль'],
-        enemies: ['Иссоп', 'Огурец (переросший)'],
-        neutral: ['Томат', 'Капуста', 'Лук'],
-        tip: 'Редис — отличный уплотнитель. Сейте его между рядами моркови или огурцов.'
-    },
-    'lettuce': {
-        name: '🥗 Салат',
-        friends: ['Морковь', 'Редис', 'Огурец', 'Клубника', 'Свёкла'],
-        enemies: ['Петрушка (курчавая)', 'Сельдерей'],
-        neutral: ['Томат', 'Капуста', 'Лук'],
-        tip: 'Салат можно использовать как живую мульчу между высокими культурами.'
-    },
-    'strawberry': {
-        name: '🍓 Клубника',
-        friends: ['Лук', 'Чеснок', 'Шпинат', 'Фасоль', 'Тимьян', 'Бархатцы', 'Бораго'],
-        enemies: ['Капуста', 'Томат', 'Картофель', 'Малина', 'Облепиха'],
-        neutral: ['Морковь', 'Свёкла', 'Салат'],
-        tip: 'Бархатцы вокруг клубничной грядки отпугивают нематоду — главного врага ягоды.'
-    }
+    'tomato': { name: '🍅 Томат', friends: ['Базилик','Морковь','Лук','Чеснок','Петрушка','Бархатцы'], enemies: ['Картофель','Фенхель','Укроп (взрослый)','Горох'], neutral: ['Огурец','Свёкла','Салат'], tip: 'Томаты и базилик — классическое соседство. Базилик отпугивает тлю и улучшает вкус плодов.' },
+    'cucumber': { name: '🥒 Огурец', friends: ['Укроп','Горох','Фасоль','Салат','Капуста','Свёкла','Чеснок'], enemies: ['Томат','Картофель','Редис','Ароматные травы'], neutral: ['Морковь','Лук','Кукуруза'], tip: 'Огурцы любят высокую влажность, а томаты — сухую. Не сажайте их в одной теплице!' },
+    'potato': { name: '🥔 Картофель', friends: ['Фасоль','Горох','Капуста','Кукуруза','Хрен','Бархатцы'], enemies: ['Томат','Огурец','Тыква','Подсолнечник'], neutral: ['Морковь','Свёкла','Лук'], tip: 'Бархатцы между рядами картофеля отпугивают колорадского жука.' },
+    'carrot': { name: '🥕 Морковь', friends: ['Лук','Томат','Горох','Редис','Салат','Шалфей'], enemies: ['Укроп','Фенхель','Анис','Сельдерей (корневой)'], neutral: ['Огурец','Картофель','Свёкла'], tip: 'Классика: лук и морковь отпугивают вредителей друг друга.' },
+    'onion': { name: '🧅 Лук', friends: ['Морковь','Свёкла','Томат','Огурец','Клубника','Ромашка'], enemies: ['Фасоль','Горох','Шалфей','Спаржа'], neutral: ['Картофель','Капуста','Перец'], tip: 'Лук рядом с клубникой защищает её от серой гнили.' },
+    'garlic': { name: '🧄 Чеснок', friends: ['Томат','Огурец','Морковь','Клубника','Роза','Смородина'], enemies: ['Фасоль','Горох','Капуста'], neutral: ['Картофель','Свёкла','Лук'], tip: 'Чеснок — природный фунгицид. Сажайте его между кустами роз.' },
+    'cabbage': { name: '🥬 Капуста', friends: ['Укроп','Сельдерей','Мята','Ромашка','Лук','Огурец','Фасоль'], enemies: ['Клубника','Томат','Виноград'], neutral: ['Морковь','Свёкла','Картофель'], tip: 'Укроп рядом с капустой привлекает божьих коровок.' },
+    'pepper': { name: '🌶 Перец', friends: ['Базилик','Морковь','Лук','Шпинат','Бархатцы'], enemies: ['Фенхель','Фасоль (стручковая)','Свёкла'], neutral: ['Томат','Огурец','Капуста'], tip: 'Перец и базилик — лучшие соседи в теплице.' },
+    'eggplant': { name: '🍆 Баклажан', friends: ['Фасоль','Горох','Шпинат','Тимьян','Бархатцы'], enemies: ['Фенхель','Огурец','Томат (близко)'], neutral: ['Перец','Лук','Морковь'], tip: 'Баклажаны не любят тесноту. Минимум 50 см между кустами.' },
+    'pea': { name: '🫛 Горох', friends: ['Морковь','Огурец','Редис','Кукуруза','Капуста','Картофель'], enemies: ['Лук','Чеснок','Томат','Подсолнечник'], neutral: ['Свёкла','Салат','Шпинат'], tip: 'Горох обогащает почву азотом.' },
+    'bean': { name: ' Фасоль', friends: ['Картофель','Огурец','Кукуруза','Свёкла','Капуста','Клубника'], enemies: ['Лук','Чеснок','Фенхель','Горох'], neutral: ['Морковь','Редис','Салат'], tip: 'Фасоль и кукуруза — классическая пара ("три сестры" с тыквой).' },
+    'beet': { name: '🟣 Свёкла', friends: ['Лук','Капуста','Салат','Огурец','Фасоль'], enemies: ['Фасоль (стручковая)','Горчица','Кукуруза'], neutral: ['Морковь','Томат','Картофель'], tip: 'Свёкла любит соседство салата — он притеняет её от солнца.' },
+    'radish': { name: '🔴 Редис', friends: ['Морковь','Огурец','Горох','Салат','Шпинат','Фасоль'], enemies: ['Иссоп'], neutral: ['Томат','Капуста','Лук'], tip: 'Редис — отличный уплотнитель между рядами.' },
+    'lettuce': { name: '🥗 Салат', friends: ['Морковь','Редис','Огурец','Клубника','Свёкла'], enemies: ['Петрушка (курчавая)','Сельдерей'], neutral: ['Томат','Капуста','Лук'], tip: 'Салат можно использовать как живую мульчу.' },
+    'strawberry': { name: '🍓 Клубника', friends: ['Лук','Чеснок','Шпинат','Фасоль','Тимьян','Бархатцы','Бораго'], enemies: ['Капуста','Томат','Картофель','Малина','Облепиха'], neutral: ['Морковь','Свёкла','Салат'], tip: 'Бархатцы вокруг клубничной грядки отпугивают нематоду.' }
 };
 
 function renderSelector() {
     const selector = document.getElementById('cropSelector');
-    Object.keys(CROPS).forEach((key, i) => {
+    const keys = Object.keys(CROPS);
+    keys.forEach((key, i) => {
         const btn = document.createElement('button');
         btn.className = 'crop-btn';
         btn.textContent = CROPS[key].name;
-        btn.onclick = () => showResult(key, btn);
+        btn.onclick = function() { showResult(key, btn); };
         selector.appendChild(btn);
         if (i === 0) showResult(key, btn);
     });
@@ -236,40 +76,23 @@ function renderSelector() {
 function showResult(key, btn) {
     document.querySelectorAll('.crop-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
     const crop = CROPS[key];
-    const area = document.getElementById('resultArea');
-
-    const friendsList = crop.friends.map(f => `<li>${f}</li>`).join('');
-    const enemiesList = crop.enemies.map(f => `<li>${f}</li>`).join('');
-    const neutralList = crop.neutral.map(f => `<li>${f}</li>`).join('');
-
-    area.innerHTML = `
+    const friendsList = crop.friends.map(f => '<li>' + f + '</li>').join('');
+    const enemiesList = crop.enemies.map(f => '<li>' + f + '</li>').join('');
+    const neutralList = crop.neutral.map(f => '<li>' + f + '</li>').join('');
+    document.getElementById('resultArea').innerHTML = `
         <div class="result-card fade-in">
             <div class="result-title">${crop.name}</div>
             <div class="relations">
-                <div class="relation-block friends">
-                    <h4>✅ Друзья (сажайте рядом)</h4>
-                    <ul>${friendsList}</ul>
-                </div>
-                <div class="relation-block enemies">
-                    <h4>❌ Враги (не сажайте рядом)</h4>
-                    <ul>${enemiesList}</ul>
-                </div>
-                <div class="relation-block neutral">
-                    <h4>😐 Нейтральные соседи</h4>
-                    <ul>${neutralList}</ul>
-                </div>
+                <div class="relation-block friends"><h4>✅ Друзья (сажайте рядом)</h4><ul>${friendsList}</ul></div>
+                <div class="relation-block enemies"><h4>❌ Враги (не сажайте рядом)</h4><ul>${enemiesList}</ul></div>
+                <div class="relation-block neutral"><h4>😐 Нейтральные соседи</h4><ul>${neutralList}</ul></div>
             </div>
-            <div class="tip-box">
-                <strong>💡 Совет:</strong> ${crop.tip}
-            </div>
-        </div>
-    `;
+            <div class="tip-box"><strong>💡 Совет:</strong> ${crop.tip}</div>
+        </div>`;
 }
 
 renderSelector();
 </script>
-
 </body>
 </html>
