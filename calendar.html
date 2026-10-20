@@ -4,105 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лунный календарь садовода 2027 — Дача-Счёт</title>
-   <link rel="icon" type="image/svg+xml" href="favicon.svg"> <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .month-nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        .month-btn {
-            padding: 8px 14px;
-            border: 1px solid var(--color-border);
-            background: white;
-            color: var(--color-text-muted);
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        .month-btn.active, .month-btn:hover {
-            background: var(--color-accent);
-            color: white;
-            border-color: var(--color-accent);
-        }
-        .legend-box {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        .color-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 2px solid rgba(0,0,0,0.1);
-        }
+        .month-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .month-btn { padding: 8px 14px; border: 1px solid var(--color-border); background: white; color: var(--color-text-muted); border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .month-btn.active, .month-btn:hover { background: var(--color-accent); color: white; border-color: var(--color-accent); }
+        .legend-box { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; padding: 15px; background: white; border-radius: 8px; border: 1px solid var(--color-border); }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: bold; }
+        .color-dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(0,0,0,0.1); }
         .dot-green { background: #dcfce7; border-color: #22c55e; }
         .dot-yellow { background: #fef9c3; border-color: #eab308; }
         .dot-red { background: #fee2e2; border-color: #ef4444; }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 30px;
-        }
-        .day-header {
-            text-align: center;
-            font-weight: bold;
-            color: var(--color-text-muted);
-            padding: 10px 0;
-            font-size: 0.9rem;
-        }
-        .day-cell {
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            border: 1px solid transparent;
-        }
-        .day-cell span {
-            font-size: 0.65rem;
-            font-weight: normal;
-            margin-top: 3px;
-            opacity: 0.85;
-            text-align: center;
-        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 30px; }
+        .day-header { text-align: center; font-weight: bold; color: var(--color-text-muted); padding: 10px 0; font-size: 0.9rem; }
+        .day-cell { aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid transparent; }
+        .day-cell span { font-size: 0.65rem; font-weight: normal; margin-top: 3px; opacity: 0.85; text-align: center; }
         .bg-green { background: #dcfce7; border-color: #22c55e; color: #14532d; }
         .bg-yellow { background: #fef9c3; border-color: #eab308; color: #713f12; }
         .bg-red { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
         .bg-empty { background: transparent; }
-        @media (max-width: 600px) {
-            .calendar-grid { gap: 4px; }
-            .day-cell { font-size: 0.9rem; }
-            .day-cell span { font-size: 0.55rem; }
-        }
+        @media (max-width: 600px) { .calendar-grid { gap: 4px; } .day-cell { font-size: 0.9rem; } .day-cell span { font-size: 0.55rem; } }
     </style>
 </head>
 <body>
-
 <div class="container">
     <header style="margin-bottom: 20px;">
         <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← На главную</a>
     </header>
-
     <h1>🌙 Лунный календарь 2027</h1>
     <p class="subtitle">Планируйте работы в саду и огороде по фазам Луны.</p>
 
@@ -116,43 +45,20 @@
     <div class="calendar-grid" id="calendarGrid"></div>
 
     <div class="ad-banner">[ Место для рекламы: Садовый инвентарь, семена, удобрения ]</div>
-
-    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">
-        © 2027 Дача-Счёт · Данные носят рекомендательный характер.
-    </footer>
+    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">© 2027 Дача-Счёт</footer>
 </div>
 
 <script>
 const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
 const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-
-// Упрощённая модель: новолуния/полнолуния каждые ~14 дней
-// Для демо используем фиксированный паттерн на 2027 год
 const MOON_DATA = {
-    // [день новолуния, день полнолуния] для каждого месяца 2027 (примерные даты)
-    0:  [6, 20],   // Январь
-    1:  [5, 19],   // Февраль
-    2:  [7, 21],   // Март
-    3:  [5, 19],   // Апрель
-    4:  [5, 19],   // Май
-    5:  [3, 18],   // Июнь
-    6:  [3, 17],   // Июль
-    7:  [1, 16, 31], // Август (два новолуния)
-    8:  [14, 29],  // Сентябрь
-    9:  [13, 28],  // Октябрь
-    10: [12, 27],  // Ноябрь
-    11: [11, 26]   // Декабрь
+    0: [6, 20], 1: [5, 19], 2: [7, 21], 3: [5, 19], 4: [5, 19], 5: [3, 18],
+    6: [3, 17], 7: [1, 16, 31], 8: [14, 29], 9: [13, 28], 10: [12, 27], 11: [11, 26]
 };
 
 function getDayType(month, day) {
     const moons = MOON_DATA[month] || [];
-    // Новолуние/полнолуние ±1 день = красный
-    for (const m of moons) {
-        if (Math.abs(day - m) <= 1) return 'red';
-    }
-    // Растущая луна (1-14 день цикла) = зелёный
-    // Убывающая (15-28) = жёлтый
-    // Упрощённо: чётные недели месяца — посадка, нечётные — уход
+    for (const m of moons) { if (Math.abs(day - m) <= 1) return 'red'; }
     const week = Math.ceil(day / 7);
     return week % 2 === 1 ? 'green' : 'yellow';
 }
@@ -160,46 +66,32 @@ function getDayType(month, day) {
 function renderMonth(monthIdx) {
     const grid = document.getElementById('calendarGrid');
     grid.innerHTML = '';
-    
-    // Заголовки дней недели
     WEEKDAYS.forEach(w => {
         const h = document.createElement('div');
         h.className = 'day-header';
         h.textContent = w;
         grid.appendChild(h);
     });
-
     const year = 2027;
-    const firstDay = new Date(year, monthIdx, 1).getDay(); // 0=Вс
+    const firstDay = new Date(year, monthIdx, 1).getDay();
     const daysInMonth = new Date(year, monthIdx + 1, 0).getDate();
-    const startOffset = firstDay === 0 ? 6 : firstDay - 1; // Пн=0
-
-    // Пустые ячейки до 1 числа
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1;
     for (let i = 0; i < startOffset; i++) {
         const cell = document.createElement('div');
         cell.className = 'day-cell bg-empty';
         grid.appendChild(cell);
     }
-
-    // Дни месяца
     for (let d = 1; d <= daysInMonth; d++) {
         const cell = document.createElement('div');
         const type = getDayType(monthIdx, d);
-        cell.className = `day-cell bg-${type}`;
-        
+        cell.className = 'day-cell bg-' + type;
         const moons = MOON_DATA[monthIdx] || [];
         let label = '';
-        if (moons.includes(d)) {
-            label = type === 'red' ? '' : '🌕';
-        } else {
-            label = type === 'green' ? 'Посадка' : 'Уход';
-        }
-        
-        cell.innerHTML = `${d}<span>${label}</span>`;
+        if (moons.includes(d)) { label = type === 'red' ? '🌕' : ''; }
+        else { label = type === 'green' ? 'Посадка' : 'Уход'; }
+        cell.innerHTML = d + '<span>' + label + '</span>';
         grid.appendChild(cell);
     }
-
-    // Обновляем кнопки
     document.querySelectorAll('.month-btn').forEach((btn, i) => {
         btn.classList.toggle('active', i === monthIdx);
     });
@@ -214,11 +106,9 @@ function init() {
         btn.onclick = () => renderMonth(i);
         nav.appendChild(btn);
     });
-    renderMonth(new Date().getMonth()); // Текущий месяц по умолчанию
+    renderMonth(new Date().getMonth());
 }
-
 init();
 </script>
-
 </body>
 </html>
