@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лунный календарь садовода — Дача-Счёт</title>
+    <title>Лунный календарь садовода 2027 — Дача-Счёт</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Специфичные стили для календаря */
+        .month-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .month-btn {
+            padding: 8px 14px;
+            border: 1px solid var(--color-border);
+            background: white;
+            color: var(--color-text-muted);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .month-btn.active, .month-btn:hover {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
         .legend-box {
             display: flex;
             gap: 15px;
@@ -33,7 +54,6 @@
         .dot-green { background: #dcfce7; border-color: #22c55e; }
         .dot-yellow { background: #fef9c3; border-color: #eab308; }
         .dot-red { background: #fee2e2; border-color: #ef4444; }
-
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -56,26 +76,23 @@
             border-radius: 8px;
             font-weight: bold;
             font-size: 1.1rem;
-            position: relative;
             border: 1px solid transparent;
         }
         .day-cell span {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: normal;
-            margin-top: 4px;
-            opacity: 0.8;
+            margin-top: 3px;
+            opacity: 0.85;
+            text-align: center;
         }
-        
-        /* Цвета дней */
         .bg-green { background: #dcfce7; border-color: #22c55e; color: #14532d; }
         .bg-yellow { background: #fef9c3; border-color: #eab308; color: #713f12; }
         .bg-red { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
         .bg-empty { background: transparent; }
-
         @media (max-width: 600px) {
             .calendar-grid { gap: 4px; }
             .day-cell { font-size: 0.9rem; }
-            .day-cell span { font-size: 0.6rem; }
+            .day-cell span { font-size: 0.55rem; }
         }
     </style>
 </head>
@@ -86,87 +103,122 @@
         <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← На главную</a>
     </header>
 
-    <h1> Лунный календарь на Октябрь 2026</h1>
+    <h1>🌙 Лунный календарь 2027</h1>
     <p class="subtitle">Планируйте работы в саду и огороде по фазам Луны.</p>
 
-    <!-- ЛЕГЕНДА (Пояснение цветов) -->
     <div class="legend-box">
-        <div class="legend-item">
-            <div class="color-dot dot-green"></div>
-            <span>🌱 Благоприятно для посадки</span>
-        </div>
-        <div class="legend-item">
-            <div class="color-dot dot-yellow"></div>
-            <span> Уход: полив, прополка</span>
-        </div>
-        <div class="legend-item">
-            <div class="color-dot dot-red"></div>
-            <span>🚫 Отдых: новолуние/полнолуние</span>
-        </div>
+        <div class="legend-item"><div class="color-dot dot-green"></div><span>🌱 Посадка</span></div>
+        <div class="legend-item"><div class="color-dot dot-yellow"></div><span>💧 Уход</span></div>
+        <div class="legend-item"><div class="color-dot dot-red"></div><span>🚫 Отдых</span></div>
     </div>
 
-    <!-- СЕТКА КАЛЕНДАРЯ -->
-    <div class="calendar-grid">
-        <!-- Заголовки дней недели -->
-        <div class="day-header">Пн</div>
-        <div class="day-header">Вт</div>
-        <div class="day-header">Ср</div>
-        <div class="day-header">Чт</div>
-        <div class="day-header">Пт</div>
-        <div class="day-header">Сб</div>
-        <div class="day-header">Вс</div>
+    <div class="month-nav" id="monthNav"></div>
+    <div class="calendar-grid" id="calendarGrid"></div>
 
-        <!-- Дни октября 2026 (1 октября - Четверг) -->
-        <div class="day-cell bg-empty"></div>
-        <div class="day-cell bg-empty"></div>
-        <div class="day-cell bg-empty"></div>
-        <div class="day-cell bg-red">1<span>Новолуние</span></div>
-        <div class="day-cell bg-green">2<span>Посадка</span></div>
-        <div class="day-cell bg-green">3<span>Посадка</span></div>
-        <div class="day-cell bg-yellow">4<span>Уход</span></div>
-        
-        <div class="day-cell bg-yellow">5<span>Уход</span></div>
-        <div class="day-cell bg-red">6<span>Не сажать</span></div>
-        <div class="day-cell bg-green">7<span>Посадка</span></div>
-        <div class="day-cell bg-green">8<span>Посадка</span></div>
-        <div class="day-cell bg-yellow">9<span>Уход</span></div>
-        <div class="day-cell bg-yellow">10<span>Уход</span></div>
-        <div class="day-cell bg-green">11<span>Посадка</span></div>
-        
-        <div class="day-cell bg-green">12<span>Посадка</span></div>
-        <div class="day-cell bg-red">13<span>Полнолуние</span></div>
-        <div class="day-cell bg-yellow">14<span>Уход</span></div>
-        <div class="day-cell bg-yellow">15<span>Уход</span></div>
-        <div class="day-cell bg-green">16<span>Посадка</span></div>
-        <div class="day-cell bg-green">17<span>Посадка</span></div>
-        <div class="day-cell bg-yellow">18<span>Уход</span></div>
-        
-        <div class="day-cell bg-yellow">19<span>Уход</span></div>
-        <div class="day-cell bg-red">20<span>Не сажать</span></div>
-        <div class="day-cell bg-green">21<span>Посадка</span></div>
-        <div class="day-cell bg-green">22<span>Посадка</span></div>
-        <div class="day-cell bg-yellow">23<span>Уход</span></div>
-        <div class="day-cell bg-yellow">24<span>Уход</span></div>
-        <div class="day-cell bg-green">25<span>Посадка</span></div>
-        
-        <div class="day-cell bg-green">26<span>Посадка</span></div>
-        <div class="day-cell bg-red">27<span>Новолуние</span></div>
-        <div class="day-cell bg-green">28<span>Посадка</span></div>
-        <div class="day-cell bg-green">29<span>Посадка</span></div>
-        <div class="day-cell bg-yellow">30<span>Уход</span></div>
-        <div class="day-cell bg-yellow">31<span>Уход</span></div>
-        <div class="day-cell bg-empty"></div>
-    </div>
-
-    <!-- БЛОК РЕКЛАМЫ -->
-    <div class="ad-banner">
-        [ Место для рекламы: Садовый инвентарь, семена, удобрения ]
-    </div>
+    <div class="ad-banner">[ Место для рекламы: Садовый инвентарь, семена, удобрения ]</div>
 
     <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">
-        © 2026 Дача-Счёт · Данные носят рекомендательный характер.
+        © 2027 Дача-Счёт · Данные носят рекомендательный характер.
     </footer>
 </div>
+
+<script>
+const MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const WEEKDAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+
+// Упрощённая модель: новолуния/полнолуния каждые ~14 дней
+// Для демо используем фиксированный паттерн на 2027 год
+const MOON_DATA = {
+    // [день новолуния, день полнолуния] для каждого месяца 2027 (примерные даты)
+    0:  [6, 20],   // Январь
+    1:  [5, 19],   // Февраль
+    2:  [7, 21],   // Март
+    3:  [5, 19],   // Апрель
+    4:  [5, 19],   // Май
+    5:  [3, 18],   // Июнь
+    6:  [3, 17],   // Июль
+    7:  [1, 16, 31], // Август (два новолуния)
+    8:  [14, 29],  // Сентябрь
+    9:  [13, 28],  // Октябрь
+    10: [12, 27],  // Ноябрь
+    11: [11, 26]   // Декабрь
+};
+
+function getDayType(month, day) {
+    const moons = MOON_DATA[month] || [];
+    // Новолуние/полнолуние ±1 день = красный
+    for (const m of moons) {
+        if (Math.abs(day - m) <= 1) return 'red';
+    }
+    // Растущая луна (1-14 день цикла) = зелёный
+    // Убывающая (15-28) = жёлтый
+    // Упрощённо: чётные недели месяца — посадка, нечётные — уход
+    const week = Math.ceil(day / 7);
+    return week % 2 === 1 ? 'green' : 'yellow';
+}
+
+function renderMonth(monthIdx) {
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+    
+    // Заголовки дней недели
+    WEEKDAYS.forEach(w => {
+        const h = document.createElement('div');
+        h.className = 'day-header';
+        h.textContent = w;
+        grid.appendChild(h);
+    });
+
+    const year = 2027;
+    const firstDay = new Date(year, monthIdx, 1).getDay(); // 0=Вс
+    const daysInMonth = new Date(year, monthIdx + 1, 0).getDate();
+    const startOffset = firstDay === 0 ? 6 : firstDay - 1; // Пн=0
+
+    // Пустые ячейки до 1 числа
+    for (let i = 0; i < startOffset; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'day-cell bg-empty';
+        grid.appendChild(cell);
+    }
+
+    // Дни месяца
+    for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('div');
+        const type = getDayType(monthIdx, d);
+        cell.className = `day-cell bg-${type}`;
+        
+        const moons = MOON_DATA[monthIdx] || [];
+        let label = '';
+        if (moons.includes(d)) {
+            label = type === 'red' ? '' : '🌕';
+        } else {
+            label = type === 'green' ? 'Посадка' : 'Уход';
+        }
+        
+        cell.innerHTML = `${d}<span>${label}</span>`;
+        grid.appendChild(cell);
+    }
+
+    // Обновляем кнопки
+    document.querySelectorAll('.month-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === monthIdx);
+    });
+}
+
+function init() {
+    const nav = document.getElementById('monthNav');
+    MONTHS.forEach((m, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'month-btn';
+        btn.textContent = m;
+        btn.onclick = () => renderMonth(i);
+        nav.appendChild(btn);
+    });
+    renderMonth(new Date().getMonth()); // Текущий месяц по умолчанию
+}
+
+init();
+</script>
 
 </body>
 </html>
