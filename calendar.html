@@ -2,17 +2,171 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Лунный календарь — Дача-Счёт</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лунный календарь садовода — Дача-Счёт</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Специфичные стили для календаря */
+        .legend-box {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .dot-green { background: #dcfce7; border-color: #22c55e; }
+        .dot-yellow { background: #fef9c3; border-color: #eab308; }
+        .dot-red { background: #fee2e2; border-color: #ef4444; }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+        .day-header {
+            text-align: center;
+            font-weight: bold;
+            color: var(--color-text-muted);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        .day-cell {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+            border: 1px solid transparent;
+        }
+        .day-cell span {
+            font-size: 0.7rem;
+            font-weight: normal;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+        
+        /* Цвета дней */
+        .bg-green { background: #dcfce7; border-color: #22c55e; color: #14532d; }
+        .bg-yellow { background: #fef9c3; border-color: #eab308; color: #713f12; }
+        .bg-red { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
+        .bg-empty { background: transparent; }
+
+        @media (max-width: 600px) {
+            .calendar-grid { gap: 4px; }
+            .day-cell { font-size: 0.9rem; }
+            .day-cell span { font-size: 0.6rem; }
+        }
+    </style>
 </head>
 <body>
+
 <div class="container">
-    <a href="index.html" style="color: var(--color-accent); text-decoration: none;">← Назад</a>
-    <h1>📅 Лунный календарь</h1>
-    <div class="card">
-        <p>Этот инструмент находится в разработке. Мы добавим таблицу благоприятных дней на 2026 год уже на следующей неделе!</p>
-        <p>Пока что используйте наш <a href="seeds-calc.html" style="color:var(--color-accent)">Калькулятор семян</a>.</p>
+    <header style="margin-bottom: 20px;">
+        <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← На главную</a>
+    </header>
+
+    <h1> Лунный календарь на Октябрь 2026</h1>
+    <p class="subtitle">Планируйте работы в саду и огороде по фазам Луны.</p>
+
+    <!-- ЛЕГЕНДА (Пояснение цветов) -->
+    <div class="legend-box">
+        <div class="legend-item">
+            <div class="color-dot dot-green"></div>
+            <span>🌱 Благоприятно для посадки</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-dot dot-yellow"></div>
+            <span> Уход: полив, прополка</span>
+        </div>
+        <div class="legend-item">
+            <div class="color-dot dot-red"></div>
+            <span>🚫 Отдых: новолуние/полнолуние</span>
+        </div>
     </div>
+
+    <!-- СЕТКА КАЛЕНДАРЯ -->
+    <div class="calendar-grid">
+        <!-- Заголовки дней недели -->
+        <div class="day-header">Пн</div>
+        <div class="day-header">Вт</div>
+        <div class="day-header">Ср</div>
+        <div class="day-header">Чт</div>
+        <div class="day-header">Пт</div>
+        <div class="day-header">Сб</div>
+        <div class="day-header">Вс</div>
+
+        <!-- Дни октября 2026 (1 октября - Четверг) -->
+        <div class="day-cell bg-empty"></div>
+        <div class="day-cell bg-empty"></div>
+        <div class="day-cell bg-empty"></div>
+        <div class="day-cell bg-red">1<span>Новолуние</span></div>
+        <div class="day-cell bg-green">2<span>Посадка</span></div>
+        <div class="day-cell bg-green">3<span>Посадка</span></div>
+        <div class="day-cell bg-yellow">4<span>Уход</span></div>
+        
+        <div class="day-cell bg-yellow">5<span>Уход</span></div>
+        <div class="day-cell bg-red">6<span>Не сажать</span></div>
+        <div class="day-cell bg-green">7<span>Посадка</span></div>
+        <div class="day-cell bg-green">8<span>Посадка</span></div>
+        <div class="day-cell bg-yellow">9<span>Уход</span></div>
+        <div class="day-cell bg-yellow">10<span>Уход</span></div>
+        <div class="day-cell bg-green">11<span>Посадка</span></div>
+        
+        <div class="day-cell bg-green">12<span>Посадка</span></div>
+        <div class="day-cell bg-red">13<span>Полнолуние</span></div>
+        <div class="day-cell bg-yellow">14<span>Уход</span></div>
+        <div class="day-cell bg-yellow">15<span>Уход</span></div>
+        <div class="day-cell bg-green">16<span>Посадка</span></div>
+        <div class="day-cell bg-green">17<span>Посадка</span></div>
+        <div class="day-cell bg-yellow">18<span>Уход</span></div>
+        
+        <div class="day-cell bg-yellow">19<span>Уход</span></div>
+        <div class="day-cell bg-red">20<span>Не сажать</span></div>
+        <div class="day-cell bg-green">21<span>Посадка</span></div>
+        <div class="day-cell bg-green">22<span>Посадка</span></div>
+        <div class="day-cell bg-yellow">23<span>Уход</span></div>
+        <div class="day-cell bg-yellow">24<span>Уход</span></div>
+        <div class="day-cell bg-green">25<span>Посадка</span></div>
+        
+        <div class="day-cell bg-green">26<span>Посадка</span></div>
+        <div class="day-cell bg-red">27<span>Новолуние</span></div>
+        <div class="day-cell bg-green">28<span>Посадка</span></div>
+        <div class="day-cell bg-green">29<span>Посадка</span></div>
+        <div class="day-cell bg-yellow">30<span>Уход</span></div>
+        <div class="day-cell bg-yellow">31<span>Уход</span></div>
+        <div class="day-cell bg-empty"></div>
+    </div>
+
+    <!-- БЛОК РЕКЛАМЫ -->
+    <div class="ad-banner">
+        [ Место для рекламы: Садовый инвентарь, семена, удобрения ]
+    </div>
+
+    <footer style="text-align: center; margin-top: 50px; color: var(--color-text-muted); font-size: 0.9rem;">
+        © 2026 Дача-Счёт · Данные носят рекомендательный характер.
+    </footer>
 </div>
+
 </body>
 </html>
