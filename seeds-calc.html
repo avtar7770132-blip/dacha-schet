@@ -7,63 +7,22 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <style>
-        .calc-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .calc-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--color-text-main);
-        }
+        .calc-form { max-width: 600px; margin: 0 auto; }
+        .calc-form label { display: block; margin-bottom: 5px; font-weight: bold; color: var(--color-text-main); }
         .calc-form select, .calc-form input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--color-border);
-            border-radius: 8px;
-            font-size: 1rem;
-            background: white;
-            margin-bottom: 15px;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; border: 1px solid var(--color-border);
+            border-radius: 8px; font-size: 1rem; background: white; margin-bottom: 15px; box-sizing: border-box;
         }
-        .calc-form small {
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
-            display: block;
-            margin-top: -10px;
-            margin-bottom: 15px;
-        }
+        .calc-form small { color: var(--color-text-muted); font-size: 0.85rem; display: block; margin-top: -10px; margin-bottom: 15px; }
         .result-box {
-            background: white;
-            border: 2px solid var(--color-accent);
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 25px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            background: white; border: 2px solid var(--color-accent);
+            border-radius: 12px; padding: 25px; margin-top: 25px;
+            max-width: 600px; margin-left: auto; margin-right: auto;
         }
-        .result-box h3 {
-            color: var(--color-accent);
-            margin-top: 0;
-        }
-        .result-box ul {
-            line-height: 2;
-            font-size: 1.1rem;
-        }
-        .result-box ul li strong {
-            color: var(--color-accent);
-            font-size: 1.2rem;
-        }
-        .tip-inline {
-            background: #f0fdf4;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #14532d;
-        }
+        .result-box h3 { color: var(--color-accent); margin-top: 0; }
+        .result-box ul { line-height: 2; font-size: 1.1rem; }
+        .result-box ul li strong { color: var(--color-accent); font-size: 1.2rem; }
+        .tip-inline { background: #f0fdf4; padding: 10px; border-radius: 6px; margin-top: 15px; font-size: 0.9rem; color: #14532d; }
     </style>
 </head>
 <body>
@@ -73,7 +32,7 @@
         <a href="index.html" style="color: var(--color-accent); text-decoration: none; font-weight: bold;">← На главную</a>
     </header>
 
-    <h1> Калькулятор семян</h1>
+    <h1>🌱 Калькулятор семян</h1>
     <p class="subtitle">Узнайте точное количество семян для вашей грядки.</p>
 
     <div class="card calc-form">
@@ -111,11 +70,11 @@
 
 <script>
 const RATES = {
-    tomato:  { rate: 0.5,  plantsPerM2: 3,  name: 'Томаты' },
-    cucumber:{ rate: 1.0,  plantsPerM2: 4,  name: 'Огурцы' },
-    carrot:  { rate: 0.8,  plantsPerM2: 100, name: 'Морковь' },
-    lettuce: { rate: 0.6,  plantsPerM2: 80,  name: 'Салат' },
-    radish:  { rate: 1.5,  plantsPerM2: 120, name: 'Редис' },
+    tomato:  { rate: 0.5,  plantsPerM2: 3,   name: 'Томаты', unit: 'гр' },
+    cucumber:{ rate: 1.0,  plantsPerM2: 4,   name: 'Огурцы', unit: 'гр' },
+    carrot:  { rate: 0.8,  plantsPerM2: 100, name: 'Морковь', unit: 'гр' },
+    lettuce: { rate: 0.6,  plantsPerM2: 80,  name: 'Салат', unit: 'гр' },
+    radish:  { rate: 1.5,  plantsPerM2: 120, name: 'Редис', unit: 'гр' },
     pea:     { rate: 20,   plantsPerM2: 25,  name: 'Горох', unit: 'шт' },
     bean:    { rate: 18,   plantsPerM2: 20,  name: 'Фасоль', unit: 'шт' }
 };
@@ -124,25 +83,24 @@ document.getElementById('seedForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const crop = document.getElementById('cropType').value;
-    const area = parseFloat(document.getElementById('area').value);
+    const areaValue = parseFloat(document.getElementById('area').value);
     const rowSpaceCm = parseFloat(document.getElementById('rowSpace').value);
     
-    if (!area || !rowSpaceCm) return alert('Заполните все поля');
+    if (!areaValue || !rowSpaceCm) return alert('Заполните все поля');
 
     const data = RATES[crop];
-    const unit = data.unit || 'гр';
     
-    const totalSeeds = (data.rate * area * 1.15).toFixed(1);
-    const totalPlants = Math.round(data.plantsPerM2 * area);
-    const rowLength = (area / (rowSpaceCm / 100)).toFixed(1);
+    const totalSeeds = (data.rate * areaValue * 1.15).toFixed(1);
+    const totalPlants = Math.round(data.plantsPerM2 * areaValue);
+    const rowLength = (areaValue / (rowSpaceCm / 100)).toFixed(1);
 
-    const area = document.getElementById('resultArea');
-    area.innerHTML = `
+    const resultBox = document.getElementById('resultArea');
+    resultBox.innerHTML = `
         <div class="result-box fade-in">
             <h3>Результат для культуры «${data.name}»</h3>
-            <p>Для площади <strong>${area}</strong> м² вам потребуется:</p>
+            <p>Для площади <strong>${areaValue}</strong> м² вам потребуется:</p>
             <ul>
-                <li>🌱 <strong>Семян:</strong> <strong>${totalSeeds} ${unit}</strong></li>
+                <li>🌱 <strong>Семян:</strong> <strong>${totalSeeds} ${data.unit}</strong></li>
                 <li> <strong>Растений (кустов):</strong> <strong>${totalPlants} шт</strong></li>
                 <li>📏 <strong>Длина рядов:</strong> <strong>${rowLength} м</strong></li>
             </ul>
@@ -152,7 +110,7 @@ document.getElementById('seedForm').addEventListener('submit', function(e) {
         </div>
     `;
 
-    area.scrollIntoView({ behavior: 'smooth' });
+    resultBox.scrollIntoView({ behavior: 'smooth' });
 });
 </script>
 
